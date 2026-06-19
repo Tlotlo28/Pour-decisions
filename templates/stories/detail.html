@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ story.report_number }} - Pour Decisions{% endblock %}
+
+{% block content %}
+<article class="case-file" style="--cat: {{ story.category.color }};">
+  <div class="stamp stamp-filed">Filed</div>
+
+  <header class="report-head">
+    <div>
+      <p class="form-no">Report {{ story.report_number }}</p>
+      <h1>{{ story.subject }}</h1>
+    </div>
+    <div class="report-meta">
+      <span class="cat-pill" style="background: {{ story.category.color }};">{{ story.category.name }}</span>
+    </div>
+  </header>
+
+  {% if story.mugshot %}
+    <img class="mugshot" src="{{ story.mugshot.url }}" alt="Photographic evidence">
+  {% endif %}
+
+  <div class="detail-meta">
+    <div>
+      <p class="field-label">Persons Involved</p>
+      <p>{% for c in story.companions.all %}{{ c.label }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    </div>
+    <div>
+      <p class="field-label">Substances Consumed</p>
+      {% if story.drinks_forgotten %}
+        <p>Subject cannot remember.</p>
+      {% else %}
+        <p>{% for d in story.drinks.all %}{{ d.name }}{% if not forloop.last %}, {% endif %}{% empty %}Not recorded.{% endfor %}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="statement">
+    <p class="field-label">Statement of Events</p>
+    <div class="statement-body">{{ story.story_text|linebreaks }}</div>
+  </div>
+
+  <fieldset class="assessment readonly">
+    <legend>Officer's Assessment</legend>
+
+    <div class="rmeter">
+      <div class="rmeter-top"><span>Chaos Level</span><span>{{ story.chaos_level }}/10</span></div>
+      <div class="rmeter-track"><div class="rmeter-fill" style="width: {{ story.chaos_level }}0%;"></div></div>
+    </div>
+    <div class="rmeter">
+      <div class="rmeter-top"><span>Memory of Event</span><span>{{ story.memory_of_event }}/10</span></div>
+      <div class="rmeter-track"><div class="rmeter-fill" style="width: {{ story.memory_of_event }}0%;"></div></div>
+    </div>
+    <div class="rmeter">
+      <div class="rmeter-top"><span>Regret Level</span><span>{{ story.regret_level }}/10</span></div>
+      <div class="rmeter-track"><div class="rmeter-fill" style="width: {{ story.regret_level }}0%;"></div></div>
+    </div>
+    <div class="rmeter">
+      <div class="rmeter-top"><span>Chance a Lesson Was Learned</span><span>{{ story.lesson_learned }}/10</span></div>
+      <div class="rmeter-track"><div class="rmeter-fill" style="width: {{ story.lesson_learned }}0%;"></div></div>
+    </div>
+  </fieldset>
+  <section class="breathalyzer"
+           data-rate-url="{% url 'stories:rate' story.pk %}"
+           data-csrf="{{ csrf_token }}"
+           data-average="{{ story.average_bac|default:'' }}"
+           data-count="{{ story.ratings.count }}"
+           data-mine="{{ user_score|default:'' }}">
+    <h2 class="breath-title">The Breathalyzer</h2>
+    <p class="breath-sub">How wrecked was this? Blow into the meter.</p>
+
+    <div class="gauge-wrap">
+      <svg class="gauge" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3f7d4f"/>
+            <stop offset="40%" stop-color="#c9a227"/>
+            <stop offset="70%" stop-color="#cf6a1f"/>
+            <stop offset="100%" stop-color="#8b1a1a"/>
+          </linearGradient>
+        </defs>
+        <path class="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100"/>
+        <path class="gauge-arc" d="M 20 100 A 80 80 0 0 1 180 100"/>
+        <g class="gauge-avg"><line x1="100" y1="100" x2="100" y2="36"/></g>
+        <g class="gauge-needle"><line x1="100" y1="100" x2="100" y2="26"/></g>
+        <circle class="gauge-hub" cx="100" cy="100" r="6"/>
+      </svg>
+
+      <div class="breath-readout">
+        <span class="breath-score">50</span>
+        <span class="breath-zone">Sloshed</span>
+      </div>
+    </div>
+
+    <input type="range" min="1" max="100" value="50" class="breath-slider" aria-label="Your reading">
+    <button type="button" class="file-btn breath-submit">File my reading</button>
+
+    <p class="breath-consensus" hidden></p>
+  </section>
+  <a class="file-btn" href="{% url 'stories:feed' %}">Back to the case files</a>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/breathalyzer.js' %}"></script>
+{% endblock %}

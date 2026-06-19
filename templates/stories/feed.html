@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}The Case Files - Pour Decisions{% endblock %}
+
+{% block content %}
+<section class="feed-intro">
+  <h1>The Case Files</h1>
+  <p>Real reports from real bad nights. Filter by classification, or let fate decide.</p>
+</section>
+
+<nav class="filter-bar">
+  <a href="{% url 'stories:feed' %}" class="filter-chip {% if not active %}is-active{% endif %}">All</a>
+  {% for c in categories %}
+    <a href="?category={{ c.slug }}"
+       class="filter-chip {% if active == c.slug %}is-active{% endif %}"
+       style="--chip: {{ c.color }};">{{ c.name }}</a>
+  {% endfor %}
+  <a href="{% url 'stories:spin' %}" class="filter-chip chip-spin">Spin the Bottle</a>
+</nav>
+
+<section class="feed-grid">
+  {% for story in stories %}
+    <a class="story-card {% cycle 'card--feature' '' '' 'card--wide' '' '' %}"
+       href="{% url 'stories:detail' story.pk %}"
+       style="--cat: {{ story.category.color }};"
+       data-reveal>
+      <span class="card-tag">{{ story.category.name }}</span>
+      <!--<span class="card-report">
+        <svg class="report-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>
+        </svg>
+        {{ story.report_number }}
+      </span> -->
+      <h2 class="card-subject">{{ story.subject }}</h2>
+      <p class="card-excerpt">{{ story.story_text|truncatewords:28 }}</p>
+      <span class="card-readmore">Read the report</span>
+    </a>
+  {% empty %}
+    <p class="empty-note">No reports on file for this classification. Suspiciously quiet.</p>
+  {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/feed.js' %}"></script>
+{% endblock %}

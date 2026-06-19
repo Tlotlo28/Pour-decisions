@@ -1,0 +1,568 @@
+/* ---- Palette (CSS variables = change once, update everywhere) ---- */
+:root {
+  --paper: #f1ece1;
+  --sheet: #faf7f0;
+  --ink: #1c1a17;
+  --ink-soft: #6f685b;
+  --line: #c9bfa9;
+  --stamp: #8b1a1a;
+  --filed: #2f4f6f;
+  --accent: #d98b94;
+  --shadow: rgba(40, 34, 24, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+}
+
+/* Subtle paper grain via an inline SVG noise texture - no image file needed. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Masthead ---- */
+.masthead {
+  text-align: center;
+  padding: 26px 16px 18px;
+  border-bottom: 2px solid var(--ink);
+}
+.masthead img { height: 54px; width: auto; }
+.tagline {
+  margin: 8px 0 0;
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
+/* ---- The case file sheet ---- */
+.case-file {
+  position: relative;
+  max-width: 760px;
+  margin: 44px auto;
+  padding: 46px 44px 52px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 44px var(--shadow);
+}
+
+.stamp {
+  position: absolute;
+  top: 28px;
+  right: -8px;
+  transform: rotate(7deg);
+  border: 3px solid var(--stamp);
+  color: var(--stamp);
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 1.05rem;
+  padding: 5px 14px;
+  opacity: 0.82;
+  border-radius: 3px;
+}
+.stamp-filed { border-color: var(--filed); color: var(--filed); }
+
+.report-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 4px double var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+.form-no {
+  margin: 0;
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+}
+.report-head h1 {
+  margin: 4px 0 0;
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 1;
+}
+.report-meta {
+  text-align: right;
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+.report-meta p { margin: 2px 0; }
+
+.instructions {
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 18px 0 28px;
+}
+
+/* ---- Fields ---- */
+.field { margin: 22px 0; }
+.field-label {
+  display: block;
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-bottom: 7px;
+}
+.field input[type="text"],
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.field textarea { resize: vertical; min-height: 70px; }
+.field input[type="file"] { font-family: "Special Elite", monospace; font-size: 0.8rem; }
+.hint {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* Companions checkbox grid */
+.companions .field-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 18px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.companions label {
+  font-family: Georgia, serif;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.96rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+.companions input { margin-right: 7px; accent-color: var(--stamp); }
+
+.inline-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  font-family: "Special Elite", monospace;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.inline-check input { accent-color: var(--stamp); }
+
+/* ---- Officer's assessment meters ---- */
+.assessment {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--ink);
+  padding: 18px 22px 24px;
+  margin: 32px 0;
+}
+.assessment legend {
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.82rem;
+  padding: 0 10px;
+}
+.meter { margin: 16px 0; }
+.meter-top {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.meter-val { color: var(--stamp); font-size: 1.05rem; }
+.meter input[type="range"] { width: 100%; accent-color: var(--stamp); cursor: pointer; }
+
+/* ---- Buttons + errors ---- */
+.file-btn {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 14px 30px;
+  border: none;
+  background: var(--ink);
+  color: var(--sheet);
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.file-btn:hover { background: var(--stamp); }
+
+.errorlist {
+  list-style: none;
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-left: 3px solid var(--stamp);
+  background: rgba(139, 26, 26, 0.06);
+  color: var(--stamp);
+  font-family: "Special Elite", monospace;
+  font-size: 0.82rem;
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  text-align: center;
+  padding: 34px 20px;
+  margin-top: 50px;
+  border-top: 1px solid var(--line);
+  font-family: "Special Elite", monospace;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.site-footer p { margin: 5px 0; }
+
+
+/* ---- Dynamic drink rows ---- */
+.drink-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.drink-row input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.drink-remove {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: "Special Elite", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 14px;
+  cursor: pointer;
+}
+.drink-remove:hover { border-color: var(--stamp); color: var(--stamp); }
+.add-btn {
+  margin-top: 2px;
+  border: 1px dashed var(--ink-soft);
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: "Special Elite", monospace;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.add-btn:hover { border-color: var(--ink); color: var(--ink); }
+.add-btn:disabled, .drink-row input:disabled { opacity: 0.4; cursor: not-allowed; }
+.is-disabled { opacity: 0.45; }
+.companions label.is-disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ---- Custom range sliders (supersedes the earlier simple rule) ---- */
+.meter input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--line);
+  outline: none;
+  cursor: pointer;
+}
+.meter input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 3px solid var(--sheet);
+  box-shadow: 0 1px 5px var(--shadow);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.meter input[type="range"]::-webkit-slider-thumb:active { transform: scale(1.3); }
+.meter input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--sheet);
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 1px 5px var(--shadow);
+  cursor: pointer;
+}
+.meter-val {
+  display: inline-block;
+  transition: transform 0.12s ease, color 0.2s ease;
+}
+.meter-val.bump { transform: scale(1.45); }
+
+/* ---- Main nav ---- */
+.mainnav {
+  margin-top: 12px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Special Elite", monospace;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.mainnav a { color: var(--ink); text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; }
+.mainnav a:hover { border-bottom-color: var(--stamp); }
+.nav-soon { color: var(--ink-soft); opacity: 0.55; cursor: default; }
+
+/* ---- Feed intro + filter ---- */
+.feed-intro { text-align: center; max-width: 700px; margin: 40px auto 8px; padding: 0 20px; }
+.feed-intro h1 { font-family: "Playfair Display", serif; font-weight: 800; font-size: 3rem; margin: 0; }
+.feed-intro p { color: var(--ink-soft); font-style: italic; }
+
+.filter-bar { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 22px 20px 30px; }
+.filter-chip {
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.74rem;
+  padding: 7px 16px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.filter-chip:hover { background: var(--ink); color: var(--sheet); }
+.filter-chip.is-active { background: var(--chip, var(--ink)); border-color: transparent; color: var(--sheet); }
+.chip-spin { border-style: dashed; border-color: var(--stamp); color: var(--stamp); }
+.chip-spin:hover { background: var(--stamp); color: var(--sheet); }
+
+/* ---- Feed grid (hierarchical) ---- */
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-auto-rows: 232px;
+  grid-auto-flow: dense;
+  gap: 18px;
+  max-width: 1120px;
+  margin: 0 auto 70px;
+  padding: 0 20px;
+}
+.card--feature { grid-column: span 2; grid-row: span 2; }
+.card--wide { grid-column: span 2; }
+
+.story-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--cat, var(--ink));
+  padding: 20px;
+  color: var(--ink);
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.story-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px var(--shadow); }
+.card-tag {
+  align-self: flex-start;
+  font-family: "Special Elite", monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--cat, var(--ink));
+  color: var(--sheet);
+  padding: 3px 9px;
+}
+.card-report { font-family: "Special Elite", monospace; font-size: 0.64rem; color: var(--ink-soft); margin-top: 9px; }
+.card-subject { font-family: "Playfair Display", serif; font-weight: 700; font-size: 1.45rem; line-height: 1.1; margin: 6px 0 8px; }
+.card-excerpt { font-size: 0.92rem; margin: 0; flex: 1; }
+.card-readmore { font-family: "Special Elite", monospace; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cat, var(--ink)); margin-top: 12px; }
+.card--feature .card-subject { font-size: 2.1rem; }
+.card--feature .card-excerpt { font-size: 1.02rem; }
+.empty-note { grid-column: 1 / -1; text-align: center; font-style: italic; color: var(--ink-soft); padding: 40px; }
+
+@media (max-width: 560px) {
+  .feed-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .card--feature, .card--wide { grid-column: auto; grid-row: auto; }
+}
+
+/* ---- Scroll reveal ---- */
+[data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 0.5s ease, transform 0.5s ease; }
+[data-reveal].revealed { opacity: 1; transform: none; }
+
+/* ---- Detail page extras ---- */
+.cat-pill {
+  display: inline-block;
+  font-family: "Special Elite", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sheet);
+  padding: 4px 12px;
+}
+.mugshot { display: block; max-width: 240px; margin: 18px 0; padding: 6px; background: var(--sheet); border: 1px solid var(--ink); filter: grayscale(0.5) contrast(1.05); }
+.detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin: 22px 0; }
+.statement { margin: 24px 0; }
+.statement-body { font-size: 1.06rem; }
+.assessment.readonly legend { color: var(--ink-soft); }
+.rmeter { margin: 14px 0; }
+.rmeter-top {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+.rmeter-track { height: 9px; background: var(--line); border-radius: 5px; overflow: hidden; }
+.rmeter-fill { height: 100%; background: var(--cat, var(--ink)); border-radius: 5px; }
+
+.card-report {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Special Elite", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: rgba(28, 26, 23, 0.05);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cat, var(--ink));
+  padding: 4px 9px;
+  margin-top: 10px;
+}
+.report-icon { width: 13px; height: 13px; flex: none; }
+
+.mainnav .nav-cta {
+  background: var(--stamp);
+  color: var(--sheet);
+  padding: 6px 16px;
+  border-bottom: 2px solid transparent;
+  transition: background 0.18s ease, transform 0.15s ease;
+}
+.mainnav .nav-cta:hover {
+  background: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* ---- The Breathalyzer ---- */
+.breathalyzer {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--stamp);
+  padding: 26px 24px 30px;
+  margin: 32px 0;
+  text-align: center;
+}
+.breath-title { font-family: "Playfair Display", serif; font-weight: 800; font-size: 1.8rem; margin: 0; }
+.breath-sub {
+  font-family: "Special Elite", monospace;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin: 4px 0 16px;
+}
+.gauge-wrap { max-width: 320px; margin: 0 auto; }
+.gauge { width: 280px; max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.gauge-track { fill: none; stroke: var(--line); stroke-width: 12; stroke-linecap: round; }
+.gauge-arc { fill: none; stroke: url(#gaugeGrad); stroke-width: 12; stroke-linecap: round; }
+.gauge-needle {
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+  transition: transform 0.18s ease-out;
+}
+.gauge-needle line { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.gauge-avg {
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  opacity: 0;
+}
+.gauge-avg.show { opacity: 1; }
+.gauge-avg line { stroke: var(--ink-soft); stroke-width: 3; stroke-dasharray: 4 4; stroke-linecap: round; }
+.gauge-hub { fill: var(--ink); }
+
+.breath-readout { margin-top: -4px; }
+.breath-score {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 1;
+}
+.breath-zone {
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+}
+.breath-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--line);
+  outline: none;
+  margin: 22px auto;
+  cursor: pointer;
+}
+.breath-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--stamp);
+  border: 3px solid var(--sheet);
+  box-shadow: 0 1px 5px var(--shadow);
+  cursor: pointer;
+}
+.breath-slider::-moz-range-thumb {
+  width: 22px; height: 22px;
+  border: 3px solid var(--sheet);
+  border-radius: 50%;
+  background: var(--stamp);
+  cursor: pointer;
+}
+.breath-consensus {
+  margin-top: 18px;
+  font-family: "Special Elite", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}

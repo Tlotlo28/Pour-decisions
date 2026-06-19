@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}File a Report - Pour Decisions{% endblock %}
+
+{% block content %}
+<article class="case-file">
+  <div class="stamp">Pending Review</div>
+
+  <header class="report-head">
+    <div>
+      <p class="form-no">Form PD-101 / Confidential</p>
+      <h1>Incident Report</h1>
+    </div>
+    <div class="report-meta">
+      <p>Status: Pending</p>
+      <p>Eyes only</p>
+    </div>
+  </header>
+
+  <p class="instructions">
+    Provide a full and honest statement of events. You are strongly advised not to
+    use your real name. Anything filed here may be used for the entertainment of others.
+  </p>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+      <ul class="errorlist">
+        {% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="field">
+      <label class="field-label" for="{{ form.subject.id_for_label }}">Subject (alias)</label>
+      {{ form.subject }}
+      <small class="hint">{{ form.subject.help_text }}</small>
+      {{ form.subject.errors }}
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="{{ form.mugshot.id_for_label }}">Photographic Evidence</label>
+      {{ form.mugshot }}
+      <small class="hint">Optional. Maximum 5MB.</small>
+      {{ form.mugshot.errors }}
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="{{ form.category.id_for_label }}">Classification of Incident</label>
+      {{ form.category }}
+      {{ form.category.errors }}
+    </div>
+
+     <div class="field companions" data-exclusive="{{ exclusive_ids }}">
+      <p class="field-label">Persons Involved</p>
+      <div class="field-options">{{ form.companions }}</div>
+      <small class="hint">{{ form.companions.help_text }}</small>
+      {{ form.companions.errors }}
+    </div>
+
+    <div class="field">
+      <p class="field-label">Substances Consumed</p>
+      <div id="drink-list">
+        {% for d in submitted_drinks %}
+          <div class="drink-row">
+            <input type="text" name="drink" value="{{ d }}" placeholder="e.g. Black Label" maxlength="80">
+            <button type="button" class="drink-remove">Remove</button>
+          </div>
+        {% empty %}
+          <div class="drink-row">
+            <input type="text" name="drink" placeholder="e.g. Tequila" maxlength="80">
+            <button type="button" class="drink-remove">Remove</button>
+          </div>
+        {% endfor %}
+      </div>
+      <button type="button" id="drink-add" class="add-btn">Add another</button>
+      <label class="inline-check">{{ form.drinks_forgotten }} I genuinely cannot remember</label>
+      {{ form.drinks_forgotten.errors }}
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="{{ form.story_text.id_for_label }}">Statement of Events</label>
+      {{ form.story_text }}
+      {{ form.story_text.errors }}
+    </div>
+
+    <fieldset class="assessment">
+      <legend>Officer's Assessment</legend>
+
+      <div class="meter">
+        <div class="meter-top">
+          <span>Chaos Level</span>
+          <span class="meter-val" data-for="{{ form.chaos_level.id_for_label }}">5</span>
+        </div>
+        {{ form.chaos_level }}
+      </div>
+
+      <div class="meter">
+        <div class="meter-top">
+          <span>Memory of Event</span>
+          <span class="meter-val" data-for="{{ form.memory_of_event.id_for_label }}">5</span>
+        </div>
+        {{ form.memory_of_event }}
+      </div>
+
+      <div class="meter">
+        <div class="meter-top">
+          <span>Regret Level</span>
+          <span class="meter-val" data-for="{{ form.regret_level.id_for_label }}">5</span>
+        </div>
+        {{ form.regret_level }}
+      </div>
+
+      <div class="meter">
+        <div class="meter-top">
+          <span>Chance a Lesson Was Learned</span>
+          <span class="meter-val" data-for="{{ form.lesson_learned.id_for_label }}">5</span>
+        </div>
+        {{ form.lesson_learned }}
+      </div>
+    </fieldset>
+
+    <button type="submit" class="file-btn">File this report</button>
+  </form>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/submit.js' %}"></script>
+{% endblock %}

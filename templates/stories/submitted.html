@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Report Filed{% endblock %}
+
+{% block content %}
+<article class="case-file">
+  <div class="stamp stamp-filed">Filed</div>
+  <header class="report-head">
+    <div>
+      <p class="form-no">Form PD-101 / Confidential</p>
+      <h1>Report Filed</h1>
+    </div>
+    <div class="report-meta"><p>Status: In Review</p></div>
+  </header>
+  <p class="instructions">
+    Your statement is in the queue, under review by our investigations unit
+    (one tired editor and a rubber stamp). Once it clears, it goes to print.
+    Thank you for your cooperation.
+  </p>
+  <a class="file-btn" href="{% url 'stories:submit' %}">File another statement</a>
+</article>
+{% endblock %}
