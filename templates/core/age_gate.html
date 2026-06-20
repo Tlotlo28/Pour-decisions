@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour Decisions - Age Check</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body class="gate-body">
+  <main class="gate">
+    <div class="stamp gate-stamp">Checkpoint</div>
+    <img class="gate-logo" src="{% static 'img/logo1.png' %}" alt="Pour Decisions">
+    <h1 class="gate-title">Before we pour</h1>
+    <p class="gate-text">Pour Decisions is a collection of drinking stories for grown adults. You must be 18 or older to come in.</p>
+    <form method="post" action="{% url 'core:age_gate' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" name="confirm" value="yes" class="file-btn gate-yes">I am 18 or older</button>
+      <button type="submit" name="confirm" value="no" class="gate-no">I am under 18</button>
+    </form>
+    <p class="gate-fine">By entering you agree to our <a href="{% url 'core:terms' %}">House Rules</a>.</p>
+  </main>
+</body>
+</html>

@@ -6,4 +6,5 @@ app_name = "core"
 urlpatterns = [
     path("house-rules/", views.terms, name="terms"),
     path("hall-of-shame/", views.hall_of_shame, name="hall_of_shame"),
+    path("age-gate/", views.age_gate, name="age_gate"),
 ]

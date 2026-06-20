@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour Decisions - Come Back Later</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body class="gate-body">
+  <main class="gate">
+    <div class="stamp gate-stamp">Denied</div>
+    <img class="gate-logo" src="{% static 'img/logo1.png' %}" alt="Pour Decisions">
+    <h1 class="gate-title">Come back in a few years</h1>
+    <p class="gate-text">No hard feelings. The bar will still be here when you are old enough. Until then, stay out of trouble - or at least stay safe getting into it.</p>
+    <a class="file-btn gate-yes" href="https://open.spotify.com/artist/2O0fopkATrQcBkRmYasrNW?si=LPk1iz6ESMqVdG4-cttOsw">Take me somewhere else</a>
+    <p class="gate-fine"><a href="{% url 'core:age_gate' %}">I clicked the wrong button</a></p>
+  </main>
+</body>
+</html>
