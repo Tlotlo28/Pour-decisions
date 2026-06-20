@@ -646,3 +646,44 @@ body::after {
 .footer-links a { color: var(--ink); text-decoration: underline; }
 .mainnav .nav-soon { color: var(--ink-soft); opacity: 0.65; }
 .mainnav .nav-soon:hover { border-bottom-color: var(--ink-soft); }
+
+/* ---- Sticky search + filter toolbar ---- */
+.feed-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 20px;
+}
+.feed-search { display: flex; justify-content: center; gap: 8px; max-width: 560px; margin: 0 auto; }
+.feed-search input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--ink);
+  background: var(--sheet);
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.feed-search button {
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  background: var(--ink);
+  color: var(--sheet);
+  border: none;
+  padding: 0 18px;
+  cursor: pointer;
+}
+.feed-search button:hover { background: var(--stamp); }
+.feed-toolbar .filter-bar { padding: 12px 0 0; }
+.search-status {
+  text-align: center;
+  font-family: "Special Elite", monospace;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 18px 0 0;
+}
+.search-status a { color: var(--stamp); }

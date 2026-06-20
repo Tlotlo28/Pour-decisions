@@ -5,35 +5,40 @@ from django.views.decorators.http import require_POST
 from django.db.models import Avg, Count
 from .forms import StoryForm
 from .models import Story, Drink, Companion, Category, Rating
+from django.db.models import Avg, Count, Q
 
 
 def feed(request):
     base = Story.objects.filter(status=Story.Status.APPROVED).select_related("category")
     active = request.GET.get("category")
+    query = (request.GET.get("q") or "").strip()
 
     featured = None
-    if not active:
-        # Highest community-rated story (needs at least one reading).
+    if not active and not query:
         featured = (base.annotate(avg=Avg("ratings__score"), n=Count("ratings"))
-                    .filter(n__gt=0)
-                    .order_by("-avg", "-n")
-                    .first())
-        # No ratings anywhere yet? Fall back to the newest report.
+                    .filter(n__gt=0).order_by("-avg", "-n").first())
         if featured is None:
             featured = base.order_by("-created_at").first()
 
     stories = base
     if active:
         stories = stories.filter(category__slug=active)
-    elif featured is not None:
-        stories = stories.exclude(pk=featured.pk)  # don't show it twice
-    stories = stories.order_by("?")
+    if query:
+        match = Q(subject__icontains=query) | Q(story_text__icontains=query)
+        if query.isdigit():
+            match |= Q(pk=query)
+        stories = stories.filter(match)
+    elif featured is not None and not active:
+        stories = stories.exclude(pk=featured.pk)
+
+    stories = stories.order_by("-created_at") if query else stories.order_by("?")
 
     return render(request, "stories/feed.html", {
         "stories": stories,
         "categories": Category.objects.all(),
         "active": active,
         "featured": featured,
+        "query": query,
     })
 
 

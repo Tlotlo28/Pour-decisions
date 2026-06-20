@@ -21,15 +21,26 @@
 </section>
 {% endif %}
 
-<nav class="filter-bar">
-  <a href="{% url 'stories:feed' %}" class="filter-chip {% if not active %}is-active{% endif %}">All</a>
-  {% for c in categories %}
-    <a href="?category={{ c.slug }}"
-       class="filter-chip {% if active == c.slug %}is-active{% endif %}"
-       style="--chip: {{ c.color }};">{{ c.name }}</a>
-  {% endfor %}
-  <a href="{% url 'stories:spin' %}" class="filter-chip chip-spin">Spin the Bottle</a>
-</nav>
+<div class="feed-toolbar">
+  <form class="feed-search" method="get" action="{% url 'stories:feed' %}">
+    {% if active %}<input type="hidden" name="category" value="{{ active }}">{% endif %}
+    <input type="search" name="q" value="{{ query }}" placeholder="Search the files by name or detail...">
+    <button type="submit">Search</button>
+  </form>
+  <nav class="filter-bar">
+    <a href="{% url 'stories:feed' %}" class="filter-chip {% if not active %}is-active{% endif %}">All</a>
+    {% for c in categories %}
+      <a href="?category={{ c.slug }}"
+         class="filter-chip {% if active == c.slug %}is-active{% endif %}"
+         style="--chip: {{ c.color }};">{{ c.name }}</a>
+    {% endfor %}
+    <a href="{% url 'stories:spin' %}" class="filter-chip chip-spin">Spin the Bottle</a>
+  </nav>
+</div>
+
+{% if query %}
+<p class="search-status">Showing reports matching "{{ query }}". <a href="{% url 'stories:feed' %}">Clear search</a></p>
+{% endif %}
 
 <section class="feed-grid">
   {% for story in stories %}
