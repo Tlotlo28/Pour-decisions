@@ -77,7 +77,7 @@ function setupDrinks() {
     var row = document.createElement("div");
     row.className = "drink-row";
     row.innerHTML =
-      '<input type="text" name="drink" placeholder="e.g. Tequila" maxlength="80">' +
+      '<input type="text" name="drink" placeholder="e.g. Black Label" maxlength="80">' +
       '<button type="button" class="drink-remove">Remove</button>';
     return row;
   }

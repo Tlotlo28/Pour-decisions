@@ -32,7 +32,7 @@
     {% endif %}
 
     <div class="field">
-      <label class="field-label" for="{{ form.subject.id_for_label }}">Subject (alias)</label>
+      <label class="field-label" for="{{ form.subject.id_for_label }}">Subject (This will also be the title of your incident report)</label>
       {{ form.subject }}
       <small class="hint">{{ form.subject.help_text }}</small>
       {{ form.subject.errors }}
@@ -73,6 +73,8 @@
           </div>
         {% endfor %}
       </div>
+
+
       <button type="button" id="drink-add" class="add-btn">Add another</button>
       <label class="inline-check">{{ form.drinks_forgotten }} I genuinely cannot remember</label>
       {{ form.drinks_forgotten.errors }}
@@ -85,7 +87,7 @@
     </div>
 
     <fieldset class="assessment">
-      <legend>Officer's Assessment</legend>
+      <legend>You are the expert on your own experience. Share your perspective.</legend>
 
       <div class="meter">
         <div class="meter-top">
@@ -119,6 +121,11 @@
         {{ form.lesson_learned }}
       </div>
     </fieldset>
+
+    <label class="consent-check">{{ form.consent }}
+      <span>I confirm this is my own story, I have permission for any photo I attach, and I have read the <a href="{% url 'core:terms' %}" target="_blank" rel="noopener">House Rules</a>.</span>
+    </label>
+    {{ form.consent.errors }}
 
     <button type="submit" class="file-btn">File this report</button>
   </form>

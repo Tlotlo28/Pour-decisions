@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}House Rules - Pour Decisions{% endblock %}
+
+{% block content %}
+<article class="case-file legal">
+  <div class="stamp">Binding</div>
+  <header class="report-head">
+    <div>
+      <p class="form-no">Form PD-000 / The Fine Print</p>
+      <h1>House Rules</h1>
+    </div>
+    <div class="report-meta"><p>Read it.</p></div>
+  </header>
+
+  <p class="instructions">By filing a report on Pour Decisions, you agree to the following. We keep it short, and we mean all of it.</p>
+
+  <h2 class="legal-h">1. The Golden Rule: other people's faces</h2>
+  <p>You may only upload a photo that is of <strong>you</strong>, or one you have explicit permission to post. Uploading a photo of another person without their consent is strictly forbidden. Do it and your report is deleted and you are banned - no warnings, no appeals. Their night, their face, their call.</p>
+
+  <h2 class="legal-h">2. It is their story too</h2>
+  <p>Do not name, tag, or identify any real person. That is exactly why the "who were you with" options only let you pick Friends, Family, and the like. Protect the guilty. Protect the innocent. Protect yourself.</p>
+
+  <h2 class="legal-h">3. Eighteen and over</h2>
+  <p>This is a site about drinking. You must be 18 or older to be here, to read, and to file. If you are not, this is not your bar yet.</p>
+
+  <h2 class="legal-h">4. Anonymous, but very public</h2>
+  <p>Your alias is your choice and the default is Anonymous - we strongly suggest you keep it that way. Everything you file can be read, screenshotted, rated, and laughed at by strangers. Do not file anything you could not live with the whole world seeing.</p>
+
+  <h2 class="legal-h">5. Keep it legal and human</h2>
+  <p>No hate speech, harassment, threats, doxxing, or anything that sexualises minors. No content that encourages real harm to anyone. This is a zero-tolerance line, and it is the one rule we will never find funny.</p>
+
+  <h2 class="legal-h">6. We are the editors</h2>
+  <p>Every report is reviewed before it goes to print. We can reject or remove anything, at any time, for any reason. Filing a report is not a guarantee it will be published.</p>
+
+  <h2 class="legal-h">7. This is comedy, not counsel</h2>
+  <p>Everything here is for entertainment. None of it is medical, legal, or life advice. Drink responsibly, get home safe, and look out for the people you are with.</p>
+
+  <h2 class="legal-h">8. The one serious line</h2>
+  <p>We laugh because we survived. If the nights have stopped being funny, reaching out for support is the strongest move you can make. It is okay to ask for help.</p>
+
+  <a class="file-btn" href="{% url 'stories:feed' %}">Back to the case files</a>
+</article>
+{% endblock %}

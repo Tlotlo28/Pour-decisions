@@ -18,7 +18,7 @@
       <a href="{% url 'stories:feed' %}">The Files</a>
       <a href="{% url 'stories:spin' %}">Spin the Bottle</a>
       <a href="{% url 'stories:submit' %}" class="nav-cta">File a Report</a>
-      <span class="nav-soon">Hall of Shame — Soon</span>
+      <a href="{% url 'core:hall_of_shame' %}" class="nav-soon">Hall of Shame — Soon</a>
     </nav>
   </header>
 
@@ -29,6 +29,7 @@
   <footer class="site-footer">
     <p>We all make pour decisions. It does not make us bad people - it makes life louder.</p>
     <p>If the nights stopped being funny, reaching out for support is the bravest call you can make.</p>
+    <p class="footer-links"><a href="{% url 'core:terms' %}">House Rules</a></p>
   </footer>
 
   {% block scripts %}{% endblock %}

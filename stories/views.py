@@ -8,17 +8,32 @@ from .models import Story, Drink, Companion, Category, Rating
 
 
 def feed(request):
-    stories = (Story.objects
-               .filter(status=Story.Status.APPROVED)
-               .select_related("category"))
+    base = Story.objects.filter(status=Story.Status.APPROVED).select_related("category")
     active = request.GET.get("category")
+
+    featured = None
+    if not active:
+        # Highest community-rated story (needs at least one reading).
+        featured = (base.annotate(avg=Avg("ratings__score"), n=Count("ratings"))
+                    .filter(n__gt=0)
+                    .order_by("-avg", "-n")
+                    .first())
+        # No ratings anywhere yet? Fall back to the newest report.
+        if featured is None:
+            featured = base.order_by("-created_at").first()
+
+    stories = base
     if active:
         stories = stories.filter(category__slug=active)
+    elif featured is not None:
+        stories = stories.exclude(pk=featured.pk)  # don't show it twice
     stories = stories.order_by("?")
+
     return render(request, "stories/feed.html", {
         "stories": stories,
         "categories": Category.objects.all(),
         "active": active,
+        "featured": featured,
     })
 
 

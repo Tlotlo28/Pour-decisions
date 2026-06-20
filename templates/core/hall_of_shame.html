@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Hall of Shame - Pour Decisions{% endblock %}
+
+{% block content %}
+<article class="case-file">
+  <div class="stamp">Classified</div>
+  <header class="report-head">
+    <div>
+      <p class="form-no">Vault PD-999 / Restricted</p>
+      <h1>The Hall of Shame</h1>
+    </div>
+    <div class="report-meta"><p>Status: Sealed</p></div>
+  </header>
+
+  <p class="instructions">
+    The Hall of Shame - where the most chaotic, highest-rated, most legendary reports
+    get enshrined forever - is currently under construction.
+  </p>
+
+  <p>We are still reinforcing the cell, bolting down the furniture, and arguing about
+    who gets the top bunk. When it opens, only the worst decisions ever filed will make
+    it through these doors. Keep filing. Keep rating. History is watching.</p>
+
+  <p class="coming-soon-line">Coming soon.</p>
+
+  <a class="file-btn" href="{% url 'stories:feed' %}">Back to the case files</a>
+</article>
+{% endblock %}

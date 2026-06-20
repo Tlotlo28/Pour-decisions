@@ -66,8 +66,9 @@
            data-average="{{ story.average_bac|default:'' }}"
            data-count="{{ story.ratings.count }}"
            data-mine="{{ user_score|default:'' }}">
-    <h2 class="breath-title">The Breathalyzer</h2>
-    <p class="breath-sub">How wrecked was this? Blow into the meter.</p>
+    <h3>{{ story.subject }}</h3>
+    <h2 class="breath-title">BAC-O-Meter(Blood Alcohol Content)</h2>
+    <p class="breath-sub">How messed up was this?</p>
 
     <div class="gauge-wrap">
       <svg class="gauge" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">

@@ -7,7 +7,10 @@ METER_FIELDS = ["chaos_level", "memory_of_event", "regret_level", "lesson_learne
 
 class StoryForm(forms.ModelForm):
     # NOT a Story field - we parse this into Drink rows in the view.
-    
+    consent = forms.BooleanField(
+        required=True,
+        error_messages={"required": "You must agree to the House Rules to file a report."},
+    )  
 
     class Meta:
         model = Story

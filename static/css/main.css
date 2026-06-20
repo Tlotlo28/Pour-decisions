@@ -566,3 +566,83 @@ body::after {
   letter-spacing: 0.04em;
   color: var(--ink);
 }
+
+/* ---- Story of the Week hero ---- */
+.sotw {
+  position: relative;
+  background: linear-gradient(rgba(15, 12, 10, 0.55), rgba(15, 12, 10, 0.80)),
+              var(--banner) center / cover no-repeat;
+  color: var(--sheet);
+}
+.sotw-inner { max-width: 900px; margin: 0 auto; padding: 72px 24px 60px; }
+.sotw-eyebrow {
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.76rem;
+  margin: 0 0 14px;
+  color: #e8d9b5;
+}
+.sotw-tag {
+  display: inline-block;
+  font-family: "Special Elite", monospace;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sheet);
+  padding: 3px 10px;
+}
+.sotw-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 3.4rem;
+  line-height: 1.05;
+  margin: 12px 0 14px;
+}
+.sotw-excerpt { font-size: 1.1rem; max-width: 620px; margin: 0 0 22px; color: #f0ece3; }
+.sotw-foot { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.sotw-bac {
+  font-family: "Special Elite", monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.sotw-link {
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  color: var(--sheet);
+  text-decoration: none;
+  border: 1px solid var(--sheet);
+  padding: 10px 20px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.sotw-link:hover { background: var(--sheet); color: var(--ink); }
+
+@media (max-width: 560px) {
+  .sotw-title { font-size: 2.2rem; }
+  .sotw-inner { padding: 52px 18px 44px; }
+}
+
+/* ---- Legal / content pages ---- */
+.legal-h { font-family: "Playfair Display", serif; font-weight: 700; font-size: 1.3rem; margin: 26px 0 6px; }
+.case-file.legal p { margin: 0 0 4px; }
+.coming-soon-line { font-family: "Special Elite", monospace; text-transform: uppercase; letter-spacing: 0.2em; color: var(--stamp); margin-top: 22px; }
+
+/* ---- Consent checkbox ---- */
+.consent-check {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin: 20px 0 6px;
+  font-size: 0.9rem;
+}
+.consent-check input { margin-top: 3px; accent-color: var(--stamp); }
+.consent-check a { color: var(--stamp); }
+
+/* ---- Footer links + nav soon ---- */
+.footer-links { margin-top: 10px; }
+.footer-links a { color: var(--ink); text-decoration: underline; }
+.mainnav .nav-soon { color: var(--ink-soft); opacity: 0.65; }
+.mainnav .nav-soon:hover { border-bottom-color: var(--ink-soft); }
