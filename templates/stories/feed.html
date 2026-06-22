@@ -7,7 +7,7 @@
 {% static 'img/img1.jpg' as default_banner %}
 <section class="sotw" style="--banner: url('{% if featured.mugshot %}{{ featured.mugshot.url }}{% else %}{{ default_banner }}{% endif %}');">
   <div class="sotw-inner">
-    <p class="sotw-eyebrow">Story of the Week</p>
+    <p class="sotw-eyebrow">Report of the Week</p>
     <span class="sotw-tag" style="background: {{ featured.category.color }};">{{ featured.category.name }}</span>
     <h1 class="sotw-title">{{ featured.subject }}</h1>
     <p class="sotw-excerpt">{{ featured.story_text|truncatewords:34 }}</p>
@@ -59,6 +59,13 @@
     <p class="empty-note">No reports on file for this classification. Suspiciously quiet.</p>
   {% endfor %}
 </section>
+
+<button type="button" class="scroll-cue" id="scrollCue" aria-label="See more stories">
+  <span>There are more stories to read.</span>
+  <svg class="scroll-cue-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M6 9l6 6 6-6"/>
+  </svg>
+</button>
 {% endblock %}
 
 {% block scripts %}

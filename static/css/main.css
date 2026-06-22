@@ -721,3 +721,46 @@ body::after {
 .gate-no:hover { border-color: var(--stamp); color: var(--stamp); }
 .gate-fine { margin-top: 22px; font-size: 0.82rem; color: var(--ink-soft); }
 .gate-fine a { color: var(--stamp); }
+
+.site-footer p a { color: var(--ink); text-decoration: underline; }
+
+/* ---- "There's more below" scroll cue ---- */
+.scroll-cue {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%) translateY(12px);
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--ink);
+  color: var(--sheet);
+  border: none;
+  border-radius: 40px;
+  padding: 11px 22px;
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  cursor: pointer;
+  box-shadow: 0 8px 24px var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s ease;
+}
+.scroll-cue.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.scroll-cue:hover { background: var(--stamp); }
+.scroll-cue-chev {
+  width: 16px;
+  height: 16px;
+  animation: cueBounce 1.4s ease-in-out infinite;
+}
+@keyframes cueBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}

@@ -63,12 +63,12 @@
       <div id="drink-list">
         {% for d in submitted_drinks %}
           <div class="drink-row">
-            <input type="text" name="drink" value="{{ d }}" placeholder="e.g. Black Label" maxlength="80">
+            <input type="text" name="drink" value="{{ d }}" placeholder="e.g. Russian bear" maxlength="80">
             <button type="button" class="drink-remove">Remove</button>
           </div>
         {% empty %}
           <div class="drink-row">
-            <input type="text" name="drink" placeholder="e.g. Tequila" maxlength="80">
+            <input type="text" name="drink" placeholder="e.g. Black Label" maxlength="80">
             <button type="button" class="drink-remove">Remove</button>
           </div>
         {% endfor %}
